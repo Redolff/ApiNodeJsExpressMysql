@@ -1,0 +1,19 @@
+POST http://localhost:3001/api/productos 
+Content-Type: application/json
+
+{
+    "name": "Gol Trend 2023",
+    "price": 2500000,
+    "img": "https://sudamerics.com.ar/wp-content/uploads/2019/10/VW_Gol_Trend-800x600.jpg"
+}
+
+###
+
+POST http://localhost:3001/api/productos 
+Content-Type: application/json
+
+{
+    "name": "Gol Trend 2023",
+    "price": 2500000,
+    "img": "https://sudamerics.com.ar/wp-content/uploads/2019/10/VW_Gol_Trend-800x600.jpg"
+}
