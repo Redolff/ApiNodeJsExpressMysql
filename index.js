@@ -1,39 +1,56 @@
 const express = require('express');
 const app = express();
-
 const cors = require('cors');
 const conexion = require('./kc');
 
+/*
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser'); */
+
 app.use(express.json());
 
-conexion.connect(function(error){
-    if(error){
-        throw error;
-    }
-    else{
-        console.log('Conexion exitosa');
-    }
-})
+app.use(cors({
+    origin: ["http://localhost:3000"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+}));  
 
-conexion.query('SELECT * FROM productos', function(error, results, request){
-    if(error){
-        throw error;
-    }
-    else{
-        results.forEach(result => {
-            app.get('/api/productos', (request, response) => {
-                response.json(result);
-            })
-        })  
-    }
-})
+/*
+app.use(cookieParser());
+app.use(bodyParser.urlencoded({extended:true})); 
+
+app.use(session({
+  key: "userId",
+  secret: process.env.SECRET,
+  resave: false,
+  saveUninitialized: false,
+  cookie:{
+    maxAge: 86400,
+  },
+})); */
+
+const productsRouter = require('./routes/productos.js');
+app.use('/', productsRouter)
 
 const PORT = 3001
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+    console.log('El servidor corre');
+    conexion.connect(function(error){
+        if(error){
+            console.log(error);
+        }else{
+            console.log('DataBase CONECTED');
+        }
+    })
 });
 
-conexion.end();
+/*
+app.get('/api/productos', (request, response) => {
+    response.json(productos);
+})
+
+
+conexion.end(); */
 
 
 
